@@ -1,5 +1,5 @@
 {
-  "name": "react-apexcharts",
+  "name": "@atif252/react-apexcharts",
   "version": "1.4.0",
   "description": "React.js wrapper for ApexCharts",
   "main": "dist/react-apexcharts.min.js",
