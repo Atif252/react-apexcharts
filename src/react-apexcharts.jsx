@@ -1,4 +1,4 @@
-import ApexCharts from '@atif252/apexcharts/dist/apexcharts.common'
+import ApexCharts from '@atif252/apexcharts/dist/apexcharts.esm'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 

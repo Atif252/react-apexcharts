@@ -1,4 +1,4 @@
-import ApexCharts from '@atif252/apexcharts/dist/apexcharts.common'
+import ApexCharts from '@atif252/apexcharts/dist/apexcharts.esm'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
@@ -16,7 +16,7 @@ export default class Charts extends Component {
   }
 
   render () {
-    const { ...props } = this.props
+    const { type, height, width, series, options, ...props } = this.props
     return React.createElement('div', {
       ref: React.createRef
         ? this.chartRef
@@ -99,18 +99,27 @@ export default class Charts extends Component {
 
   componentDidUpdate (prevProps) {
     if (!this.chart) return null
-    const { options, series } = this.props
+    const { options, series, height, width } = this.props
     const prevOptions = JSON.stringify(prevProps.options)
     const prevSeries = JSON.stringify(prevProps.series)
     const currentOptions = JSON.stringify(options)
     const currentSeries = JSON.stringify(series)
 
-    if (prevOptions !== currentOptions || prevSeries !== currentSeries) {
+    if (
+      prevOptions !== currentOptions ||
+      prevSeries !== currentSeries ||
+      height !== prevProps.height ||
+      width !== prevProps.width
+    ) {
       if (prevSeries === currentSeries) {
-        // series is not changed,but options are changed
+        // series has not changed, but options or size have changed
         this.chart.updateOptions(this.getConfig())
-      } else if (prevOptions === currentOptions) {
-        // options are not changed, just the series is changed
+      } else if (
+        prevOptions === currentOptions &&
+        height === prevProps.height &&
+        width === prevProps.width
+      ) {
+        // options or size have not changed, just the series has changed
         this.chart.updateSeries(series)
       } else {
         // both might be changed
